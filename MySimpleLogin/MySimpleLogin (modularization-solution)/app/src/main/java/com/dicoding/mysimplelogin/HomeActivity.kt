@@ -3,9 +3,11 @@ package com.dicoding.mysimplelogin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.dicoding.core.SessionManager
 import com.dicoding.core.UserRepository
 import com.dicoding.mysimplelogin.databinding.ActivityHomeBinding
+import java.lang.Exception
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,10 +28,18 @@ class HomeActivity : AppCompatActivity() {
             userRepository.logoutUser()
             moveToMainActivity()
         }
+
+        binding.fab.setOnClickListener{
+            try{
+                moveToMainActivity()
+            }catch (e: Exception){
+                Toast.makeText(this, "Module Not Found", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun moveToMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Class.forName("com.dicoding.mysimplelogin.chat.Chatactivity")))
         finish()
     }
 }
